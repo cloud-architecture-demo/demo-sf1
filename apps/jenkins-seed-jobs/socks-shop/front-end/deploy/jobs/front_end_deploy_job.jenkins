@@ -1,0 +1,31 @@
+#!/usr/bin/env groovy
+
+pipelineJob('front-end-deploy-jenkins-operator') {
+    displayName('front-end-deploy')
+
+    logRotator {
+        numToKeep(30)
+        daysToKeep(90)
+    }
+
+    configure { project ->
+        project / 'properties' / 'org.jenkinsci.plugins.workflow.job.properties.DurabilityHintJobProperty' {
+            hint('PERFORMANCE_OPTIMIZED')
+        }
+    }
+
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url('https://github.com/Joeltrane/architecture-demo.git')
+                        credentials('jenkins-operator')
+                    }
+                    branches('*/dev')
+                }
+            }
+            scriptPath('apps/jenkins-seed-jobs/socks-shop/front-end/deploy/pipelines/front_end_deploy_pipeline.jenkins')
+        }
+    }
+}

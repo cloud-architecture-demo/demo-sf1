@@ -1,0 +1,20 @@
+#!/usr/bin/env groovy
+
+def label = "k8sagent-carts-build"
+def home = "/home/jenkins"
+def workspace = "${home}/workspace/carts-build"
+def workdir = "${workspace}/carts-build/"
+
+podTemplate(label: label,
+        containers: [
+                containerTemplate(name: 'alpine', image: 'alpine:3.11', ttyEnabled: true, command: 'cat'),
+        ],
+        ) {
+    node(label) {
+        stage('Carts product build job') {
+            container('alpine') {
+                sh 'echo "This is the carts build pipeline."'
+            }
+        }
+    }
+}
