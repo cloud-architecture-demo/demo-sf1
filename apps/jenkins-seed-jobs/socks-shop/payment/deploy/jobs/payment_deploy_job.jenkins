@@ -20,7 +20,7 @@ pipelineJob('payment-deploy-jenkins-operator') {
                 git {
                     remote {
                         url('https://github.com/Joeltrane/architecture-demo.git')
-                        credentials('jenkins-operator')
+                        credentials('github-user-token')
                     }
                     branches('*/dev')
                 }
