@@ -1,9 +1,9 @@
 #!/usr/bin/env groovy
 
-def label = "k8sagent-front-end-deploy"
+def label = "k8sagent-rabbitmq-deploy"
 def home = "/home/jenkins"
-def workspace = "${home}/workspace/front-end-deploy"
-def workdir = "${workspace}/front-end-deploy/"
+def workspace = "${home}/workspace/rabbitmq-deploy"
+def workdir = "${workspace}/rabbitmq-deploy/"
 
 podTemplate(label: label,
         containers: [
@@ -11,9 +11,9 @@ podTemplate(label: label,
         ],
         ) {
     node(label) {
-        stage('front-end product deploy job') {
+        stage('rabbitmq product deploy job') {
             container('alpine') {
-                sh 'echo "This is the front-end deploy pipeline."'
+                sh 'echo "This is the rabbitmq deploy pipeline."'
             }
         }
     }

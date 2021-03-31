@@ -60,18 +60,20 @@ spec:
         runAsUser: 1000
         fsGroup: 1000
   seedJobs:
-  - id: jenkins-operator
+  - id: hello-world-demo
+    credentialType: usernamePassword
+    credentialID: github-user-token
     targets: "apps/jenkins-seed-jobs/hello-world/jobs/hello_world.jenkins"
     description: "Hello World Demo - Jenkins Operator"
     repositoryBranch: dev
     repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
   - id: socks-shop-carts-build
-    credentialType: usernamePassword
-    credentialID: github-user-token
+    #credentialType: usernamePassword
+    #credentialID: github-user-token
     targets: "apps/jenkins-seed-jobs/socks-shop/carts/build/jobs/carts_build_job.jenkins"
     description: "Socks Shop - Carts Build - Jenkins Operator"
-    repositoryBranch: dev
-    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+    repositoryBranch: master
+    repositoryUrl: https://github.com/cloud-architecture-demo/carts.git
   - id: socks-shop-carts-deploy
     credentialType: usernamePassword
     credentialID: github-user-token
