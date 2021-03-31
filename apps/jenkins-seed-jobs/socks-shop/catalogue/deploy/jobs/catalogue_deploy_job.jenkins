@@ -19,7 +19,7 @@ pipelineJob('catalogue-deploy-jenkins-operator') {
             scm {
                 git {
                     remote {
-                        url('https://github.com/Joeltrane/architecture-demo.git')
+                        url('https://github.com/cloud-architecture-demo/demo-sf1.git')
                         credentials('github-user-token')
                     }
                     branches('*/dev')
