@@ -68,8 +68,6 @@ spec:
     repositoryBranch: dev
     repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
   - id: socks-shop-carts-build
-    #credentialType: usernamePassword
-    #credentialID: github-user-token
     targets: "apps/jenkins-seed-jobs/socks-shop/carts/build/jobs/carts_build_job.jenkins"
     description: "Socks Shop - Carts Build - Jenkins Operator"
     repositoryBranch: master

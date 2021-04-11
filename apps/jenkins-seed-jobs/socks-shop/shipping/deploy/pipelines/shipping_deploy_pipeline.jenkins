@@ -13,7 +13,11 @@ podTemplate(label: label,
     node(label) {
         stage('shipping product deploy job') {
             container('alpine') {
-                sh 'echo "This is the shipping deploy pipeline."'
+                sh '''
+                  echo "This is the shipping deploy pipeline."
+
+                  kubectl apply -f apps/jenkins-seed-jobs/socks-shop/shipping/deploy/kubernetes
+                '''
             }
         }
     }
