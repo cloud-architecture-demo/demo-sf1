@@ -2,30 +2,10 @@ apiVersion: jenkins.io/v1alpha2
 kind: Jenkins
 metadata:
   name: prod-jenkins
-  configurationAsCode:
-    configurations:
-    - name: jenkins-operator-user-configuration
-    secret:
-      name: jenkins-conf-secrets
-  groovyScripts:
-    configurations:
-    - name: jenkins-operator-user-configuration
-    secret:
-      name: jenkins-conf-secrets
 spec:
   service:
     type: NodePort
     port: 8080
-
-
-#  credentials:
-#    global:
-#      domainCredentials:
-#        - credentials:
-#            - file:
-#                scope: GLOBAL
-#                id: kubeconfig
-
   master:
     basePlugins:
     - name: kubernetes
@@ -42,8 +22,6 @@ spec:
       version: "1.47"
     - name: kubernetes-credentials-provider
       version: "0.13"
-    #- name: kubernetes-cd
-    #  version: "2.3.1"
     containers:
     - name: jenkins-master
       image: jenkins/jenkins:lts
