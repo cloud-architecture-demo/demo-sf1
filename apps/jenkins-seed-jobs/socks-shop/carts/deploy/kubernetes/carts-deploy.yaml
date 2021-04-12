@@ -8,10 +8,13 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: carts
   template:
     metadata:
       labels:
-        name: carts
+        app.kubernetes.io/name: carts
     spec:
       containers:
       - name: carts
