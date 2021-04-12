@@ -93,3 +93,22 @@ resource "kubectl_manifest" "jenkins_server" {
     count     = length(data.kubectl_file_documents.jenkins_server_manifests.documents)
     yaml_body = element(data.kubectl_file_documents.jenkins_server_manifests.documents, count.index)
 }
+
+
+data "kubectl_file_documents" "github-access-token_manifests" {
+    content = file("../apps/_credentials/github-access-token-secret.yaml")
+}
+
+resource "kubectl_manifest" "github-access-token_credentials" {
+    count     = length(data.kubectl_file_documents.github-access-token_manifests.documents)
+    yaml_body = element(data.kubectl_file_documents.github-access-token_manifests.documents, count.index)
+}
+
+data "kubectl_file_documents" "kubeconfig_credentials_manifests" {
+    content = file("../apps/_credentials/kubeconfig-secret.yaml")
+}
+
+resource "kubectl_manifest" "kubeconfig_credentials" {
+    count     = length(data.kubectl_file_documents.kubeconfig_credentials_manifests.documents)
+    yaml_body = element(data.kubectl_file_documents.kubeconfig_credentials_manifests.documents, count.index)
+}

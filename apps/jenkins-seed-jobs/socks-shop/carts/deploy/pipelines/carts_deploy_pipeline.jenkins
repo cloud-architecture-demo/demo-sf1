@@ -6,19 +6,39 @@ def workspace = "${home}/workspace/carts-deploy"
 def workdir = "${workspace}/carts-deploy/"
 
 podTemplate(label: label,
-        containers: [
-                containerTemplate(name: 'alpine', image: 'alpine:3.11', ttyEnabled: true, command: 'cat'),
-        ],
-        ) {
-    node(label) {
-        stage('Carts product deploy job') {
-            container('alpine') {
-                sh '''
-                  echo "This is the carts deploy pipeline."
+  containers: [
+    containerTemplate(name: 'kubectl', image: 'jenkins/inbound-agent', ttyEnabled: true, command: 'cat'),
+  ],
+) {
+node(label) {
+  stage('Carts product deploy job') {
+    withCredentials([file(credentialsId: 'kubeconfig', variable: 'kubeconfig'),
+    usernamePassword(credentialsId: 'github-user-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+      container('kubectl') {
+        sh '''
+          echo "This is the carts deploy pipeline."
 
-                  kubectl apply -f apps/jenkins-seed-jobs/socks-shop/carts/deploy/kubernetes
-                '''
-            }
+          git clone https://${PASSWORD}@github.com/cloud-architecture-demo/demo-sf1.git -b dev
+
+          #cd demo-sf1/apps/jenkins-seed-jobs
+
+          ls -lah
+
+          export PATH=$PATH:/home/jenkins/bin/
+
+          wget https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
+          unzip awscli-bundle.zip
+          ./awscli-bundle/install -b ~/bin/aws
+
+          aws --version
+
+          wget -O ./kubectl https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl
+          chmod +x ./kubectl
+
+          ./kubectl --kubeconfig=${kubeconfig} apply -f ./demo-sf1/apps/jenkins-seed-jobs/socks-shop/carts/deploy/kubernetes
+        '''
         }
+      }
     }
+  }
 }
