@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        name: orders-db
+        app.kubernetes.io/name: orders-db
     spec:
       containers:
       - name: orders-db

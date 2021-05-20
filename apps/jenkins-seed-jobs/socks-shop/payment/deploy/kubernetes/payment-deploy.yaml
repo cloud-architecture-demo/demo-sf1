@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        name: payment
+        app.kubernetes.io/name: payment
     spec:
       containers:
       - name: payment

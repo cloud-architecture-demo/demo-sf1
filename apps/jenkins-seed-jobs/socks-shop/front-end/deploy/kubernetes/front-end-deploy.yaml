@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-        name: front-end
+        app.kubernetes.io/name: front-end
     spec:
       containers:
       - name: front-end

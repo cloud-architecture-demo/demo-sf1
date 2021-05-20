@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        name: user
+        app.kubernetes.io/name: user
     spec:
       containers:
       - name: user

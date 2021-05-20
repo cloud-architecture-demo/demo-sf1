@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        name: queue-master
+        app.kubernetes.io/name: queue-master
     spec:
       containers:
       - name: queue-master

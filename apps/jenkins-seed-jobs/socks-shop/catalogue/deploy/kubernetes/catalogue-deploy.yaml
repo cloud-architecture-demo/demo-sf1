@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        name: catalogue
+        app.kubernetes.io/name: catalogue
     spec:
       containers:
       - name: catalogue

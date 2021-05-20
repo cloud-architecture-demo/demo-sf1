@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        name: shipping
+        app.kubernetes.io/name: shipping
     spec:
       containers:
       - name: shipping

@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        name: catalogue-db
+        app.kubernetes.io/name: catalogue-db
     spec:
       containers:
       - name: catalogue-db

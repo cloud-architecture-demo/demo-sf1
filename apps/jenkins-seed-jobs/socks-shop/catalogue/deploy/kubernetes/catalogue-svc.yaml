@@ -5,11 +5,11 @@ metadata:
   name: catalogue
   labels:
     name: catalogue
-  namespace: sock-shop
 spec:
+  selector:
+    name: catalogue
   ports:
     # the port that this service should serve on
   - port: 80
     targetPort: 80
-  selector:
-    name: catalogue
+
