@@ -6,19 +6,30 @@ def workspace = "${home}/workspace/queue-master-deploy"
 def workdir = "${workspace}/queue-master-deploy/"
 
 podTemplate(label: label,
-        containers: [
-                containerTemplate(name: 'alpine', image: 'alpine:3.11', ttyEnabled: true, command: 'cat'),
-        ],
-        ) {
-    node(label) {
-        stage('queue-master product deploy job') {
-            container('alpine') {
-                sh '''
-                  echo "This is the queue-master deploy pipeline."
+  containers: [
+    containerTemplate(name: 'kubectl', image: 'jenkins/inbound-agent', ttyEnabled: true, command: 'cat'),
+  ],
+) {
+node(label) {
+  stage('Queue-Master product deploy job') {
+    withCredentials([usernamePassword(credentialsId: 'github-user-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+      container('kubectl') {
+        sh '''
+          echo "This is the queue-master deploy pipeline."
 
-                  kubectl apply -f apps/jenkins-seed-jobs/socks-shop/queue-master/deploy/kubernetes
-                '''
-            }
+          ## Prepare environment
+          git clone https://${PASSWORD}@github.com/cloud-architecture-demo/demo-sf1.git -b dev
+          export PATH=$PATH:/home/jenkins/bin/
+          wget --quiet https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
+          unzip awscli-bundle.zip
+          ./awscli-bundle/install -b ~/bin/aws
+          wget --quiet -O /home/jenkins/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl
+          chmod +x /home/jenkins/bin/kubectl
+
+          kubectl apply -f ./demo-sf1/apps/jenkins-seed-jobs/socks-shop/queue-master/deploy/kubernetes
+        '''
         }
+      }
     }
+  }
 }

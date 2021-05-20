@@ -9,7 +9,9 @@ spec:
   master:
     basePlugins:
     - name: kubernetes
-      version: "1.25.2"
+      version: "1.29.4"
+    - name: kubernetes-cli
+      version: "1.10.0"
     - name: workflow-job
       version: "2.40"
     - name: workflow-aggregator
@@ -19,7 +21,7 @@ spec:
     - name: job-dsl
       version: "1.77"
     - name: configuration-as-code
-      version: "1.47"
+      version: "1.50"
     - name: kubernetes-credentials-provider
       version: "0.13"
     containers:
