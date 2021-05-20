@@ -15,7 +15,7 @@ node(label) {
     withCredentials([usernamePassword(credentialsId: 'github-user-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
       container('kubectl') {
         sh '''
-          echo "This is the carts session pipeline."
+          echo "This is the session session pipeline."
 
           ## Prepare environment
           git clone https://${PASSWORD}@github.com/cloud-architecture-demo/demo-sf1.git -b dev
