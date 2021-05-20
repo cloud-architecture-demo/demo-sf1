@@ -9,7 +9,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: catalogue
+      app.kubernetes.io/name: payment
   template:
     metadata:
       labels:
