@@ -6,6 +6,9 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: front-end
   template:
     metadata:
       labels:
