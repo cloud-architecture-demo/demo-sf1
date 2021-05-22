@@ -72,7 +72,7 @@ spec:
   - id: socks-shop-carts-build
     targets: "apps/jenkins-seed-jobs/socks-shop/carts/build/jobs/carts_build_job.jenkins"
     description: "Socks Shop - Carts Build - Jenkins Operator"
-    repositoryBranch: master
+    repositoryBranch: dev
     repositoryUrl: https://github.com/cloud-architecture-demo/carts.git
   - id: socks-shop-carts-deploy
     credentialType: usernamePassword
