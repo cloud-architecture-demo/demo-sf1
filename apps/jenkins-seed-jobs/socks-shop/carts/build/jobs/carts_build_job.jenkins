@@ -25,7 +25,7 @@ pipelineJob('carts-build-jenkins-operator') {
                     branches('*/dev')
                 }
             }
-            scriptPath('apps/jenkins-seed-jobs/socks-shop/carts/build/pipelines/carts_build_pipeline.jenkins')
+            scriptPath('apps/jenkins-seed-jobs/socks-shop/carts/build/pipelines/carts_build_job.jenkins')
         }
     }
 }
