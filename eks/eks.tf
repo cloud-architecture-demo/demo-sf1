@@ -76,6 +76,17 @@ resource "kubectl_manifest" "nginx_ingress_controller" {
     yaml_body = element(data.kubectl_file_documents.nginx_ingress_controller_manifests.documents, count.index)
 }
 
+
+data "kubectl_file_documents" "socks_shop_namespace_manifests" {
+    content = file("../apps/jenkins-seed-jobs/socks-shop/sock-shop-ns.yaml")
+}
+
+resource "kubectl_manifest" "socks_shop_namespace" {
+    count     = length(data.kubectl_file_documents.socks_shop_namespace_manifests.documents)
+    yaml_body = element(data.kubectl_file_documents.socks_shop_namespace_manifests.documents, count.index)
+}
+
+
 data "kubectl_file_documents" "jenkins_operator_manifests" {
     content = file("../apps/jenkins-operator/jenkins-operator.yaml")
 }
