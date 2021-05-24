@@ -153,6 +153,34 @@ spec:
     description: "Socks Shop - Queue-Master Deploy - Jenkins Operator"
     repositoryBranch: dev
     repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-session-build
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/session/build/jobs/session_build_job.jenkins"
+    description: "Socks Shop - Session Build - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-session-deploy
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/session/deploy/jobs/session_deploy_job.jenkins"
+    description: "Socks Shop - Session Deploy - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-shipping-build
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/shipping/build/jobs/shipping_build_job.jenkins"
+    description: "Socks Shop - Shipping Build - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-shipping-deploy
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/shipping/deploy/jobs/shipping_deploy_job.jenkins"
+    description: "Socks Shop - Shipping Deploy - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
   - id: socks-shop-user-build
     credentialType: usernamePassword
     credentialID: github-user-token
