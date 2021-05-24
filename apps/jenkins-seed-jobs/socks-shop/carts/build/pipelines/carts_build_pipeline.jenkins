@@ -18,7 +18,12 @@ podTemplate(label: label,
 
                         echo "This is the carts build pipeline."
 
-                        mvn -DskipTests package
+                        ## Prepare environment
+                        git clone https://${PASSWORD}@github.com:cloud-architecture-demo/carts.git
+                        export PATH=$PATH:/home/jenkins/bin/
+
+
+                        mvn -DskipTests package -f ./carts/pom.xml
 
                     '''
                 }
