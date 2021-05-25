@@ -6,8 +6,20 @@ def workspace = "${home}/workspace/carts-build"
 def workdir = "${workspace}/carts-build/"
 
 podTemplate(label: label,
-        containers: [
-            containerTemplate(name: 'maven', image: 'maven:3.8.1-jdk-8', ttyEnabled: true, command: 'cat'),
+    containers: [
+        containerTemplate(name: 'maven', image: 'cloudarchitecturedemo/agent:0.1', ttyEnabled: true, command: 'cat',
+            envVars: [
+                envVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375'),
+            ],
+        ),
+        containerTemplate(name: 'docker', image: 'docker:20.10.6-dind', privileged: true, ttyEnabled: true, command: 'cat',
+            envVars: [
+                envVar(key: 'DOCKER_TLS_CERTDIR', value: ''),
+            ],
+        ),
+        ],
+        volumes: [
+            emptyDirVolume(mountPath: '/var/lib/docker', memory: false),
         ],
         ) {
     node(label) {
@@ -24,6 +36,8 @@ podTemplate(label: label,
 
 
                         mvn -DskipTests package -f ./carts/pom.xml
+
+                        sudo docker build -t cloud-architecture-demo/carts:v0.1 -f carts/Dockerfile .
 
                     '''
                 }
