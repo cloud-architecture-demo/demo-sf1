@@ -12,7 +12,7 @@ podTemplate(label: label,
                 envVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375'),
             ],
         ),
-        containerTemplate(name: 'docker', image: 'docker:20.10.6-dind', privileged: true, ttyEnabled: true, command: 'cat',
+        containerTemplate(name: 'docker', image: 'docker:20.10.6-dind', privileged: true, ttyEnabled: true,
             envVars: [
                 envVar(key: 'DOCKER_TLS_CERTDIR', value: ''),
             ],
