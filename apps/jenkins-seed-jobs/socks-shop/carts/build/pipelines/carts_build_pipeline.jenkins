@@ -33,9 +33,9 @@ podTemplate(label: label,
                         ## Prepare environment
                         git clone https://github.com/cloud-architecture-demo/carts.git
                         export PATH=$PATH:/home/jenkins/bin/
+                        mv ./carts/* .
 
-
-                        mvn -DskipTests package -f ./carts/pom.xml
+                        mvn -DskipTests package
 
                         docker build -t cloud-architecture-demo/carts:v0.1 -f carts/Dockerfile .
 
