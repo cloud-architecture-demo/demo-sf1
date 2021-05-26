@@ -37,7 +37,7 @@ podTemplate(label: label,
 
                         mvn -DskipTests package
 
-                        docker build -t cloud-architecture-demo/carts:v0.1 -f carts/Dockerfile .
+                        docker build -t cloud-architecture-demo/carts:v0.1 .
 
                     '''
                 }
