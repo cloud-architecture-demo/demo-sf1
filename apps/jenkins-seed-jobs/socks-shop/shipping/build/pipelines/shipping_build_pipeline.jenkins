@@ -36,8 +36,9 @@ podTemplate(label: label,
                         mv ./shipping/* .
 
                         mvn -DskipTests package
+                        mv target/*.jar .
 
-                        docker build -t cloud-architecture-demo/shipping:v0.1 .
+                        docker build -t cloud-architecture-demo/shipping:v0.1 -f docker/shipping/Dockerfile .
 
                     '''
                 }
