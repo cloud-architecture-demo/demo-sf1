@@ -6,14 +6,49 @@ def workspace = "${home}/workspace/payment-build"
 def workdir = "${workspace}/payment-build/"
 
 podTemplate(label: label,
-        containers: [
-                containerTemplate(name: 'alpine', image: 'alpine:3.11', ttyEnabled: true, command: 'cat'),
+    containers: [
+        containerTemplate(name: 'maven', image: 'cloudarchitecturedemo/agent:0.1', alwaysPullImage: true, ttyEnabled: true, command: 'cat',
+            envVars: [
+                envVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375'),
+            ],
+        ),
+        containerTemplate(name: 'docker', image: 'docker:20.10.6-dind', privileged: true, ttyEnabled: true,
+            envVars: [
+                envVar(key: 'DOCKER_TLS_CERTDIR', value: ''),
+            ],
+        ),
+        ],
+        volumes: [
+            emptyDirVolume(mountPath: '/var/lib/docker', memory: false),
         ],
         ) {
     node(label) {
-        stage('payment product build job') {
-            container('alpine') {
-                sh 'echo "This is the payment build pipeline."'
+        stage('payment product build pipeline') {
+            withCredentials([usernamePassword(credentialsId: 'github-user-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                container('maven') {
+                    sh '''
+
+                        echo "This is the payment build pipeline."
+
+                        echo ""
+                        echo "GO Path: ${GOPATH}"
+
+                        ## Prepare environment
+                        git clone https://github.com/cloud-architecture-demo/payment.git
+                        export PATH=$PATH:/home/jenkins/bin/
+                        mv ./payment ~/work/
+
+                        cd ~/work/payment
+                        go get -u github.com/FiloSottile/gvt
+                        gvt restore
+
+                        cd ./paymentsvc/
+                        go build -o payment
+
+                        docker build -t cloud-architecture-demo/payment:v0.1 .
+
+                    '''
+                }
             }
         }
     }
