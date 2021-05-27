@@ -9,7 +9,8 @@ RUN apt update                                   && \
                    apt-transport-https              \
                    ca-certificates                  \
                    curl                             \
-                   gnupg2                           \
+                   gnupg2			    \
+		   build-essential                  \
                    software-properties-common    && \
 
 ## install openjdk8
