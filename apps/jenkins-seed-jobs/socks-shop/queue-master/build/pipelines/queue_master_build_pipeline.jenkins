@@ -6,14 +6,42 @@ def workspace = "${home}/workspace/queue-master-build"
 def workdir = "${workspace}/queue-master-build/"
 
 podTemplate(label: label,
-        containers: [
-                containerTemplate(name: 'alpine', image: 'alpine:3.11', ttyEnabled: true, command: 'cat'),
+    containers: [
+        containerTemplate(name: 'maven', image: 'cloudarchitecturedemo/agent:0.1', ttyEnabled: true, command: 'cat',
+            envVars: [
+                envVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375'),
+            ],
+        ),
+        containerTemplate(name: 'docker', image: 'docker:20.10.6-dind', privileged: true, ttyEnabled: true,
+            envVars: [
+                envVar(key: 'DOCKER_TLS_CERTDIR', value: ''),
+            ],
+        ),
+        ],
+        volumes: [
+            emptyDirVolume(mountPath: '/var/lib/docker', memory: false),
         ],
         ) {
     node(label) {
         stage('queue-master product build job') {
-            container('alpine') {
-                sh 'echo "This is the queue-master build pipeline."'
+            withCredentials([usernamePassword(credentialsId: 'github-user-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                container('maven') {
+                    sh '''
+
+                        echo "This is the queue-master build pipeline."
+
+                        ## Prepare environment
+                        git clone https://github.com/cloud-architecture-demo/queue-master.git
+                        export PATH=$PATH:/home/jenkins/bin/
+                        mv ./queue-master/* .
+
+                        mvn -DskipTests package
+                        mv target/*.jar .
+
+                        docker build -t cloud-architecture-demo/queue-master:v0.1 -f docker/queue-master/Dockerfile .
+
+                    '''
+                }
             }
         }
     }
