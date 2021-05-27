@@ -7,7 +7,7 @@ def workdir = "${workspace}/shipping-deploy/"
 
 podTemplate(label: label,
   containers: [
-    containerTemplate(name: 'kubectl', image: 'jenkins/inbound-agent', ttyEnabled: true, command: 'cat'),
+        containerTemplate(name: 'maven', image: 'cloudarchitecturedemo/agent:0.1', alwaysPullImage: true, ttyEnabled: true, command: 'cat',
   ],
 ) {
 node(label) {
