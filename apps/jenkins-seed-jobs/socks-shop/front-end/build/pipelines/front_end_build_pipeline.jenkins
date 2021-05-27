@@ -35,7 +35,7 @@ podTemplate(label: label,
                         export PATH=$PATH:/home/jenkins/bin/
                         mv ./front-end/* .
 
-                        docker build -t cloud-architecture-demo/front-end:v0.1 -f docker/front-end/Dockerfile .
+                        docker build -t cloud-architecture-demo/front-end:v0.1 .
 
                     '''
                 }
