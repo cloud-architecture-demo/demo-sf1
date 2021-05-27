@@ -43,7 +43,9 @@ RUN apt update                                   && \
 
 ## Configure Jenkins User
 USER 1000
-ENV PATH=$PATH:/home/jenkins/bin/:/usr/local/go/bin:$GOPATH/bin
-ENV GOPATH=$HOME/work
+ENV HOME="/home/jenkins"
+ENV GOPATH="$HOME/work"
+ENV PATH="$PATH:/home/jenkins/bin/:/usr/local/go/bin:$GOPATH/bin"
 
-RUN mkdir $HOME/work
+RUN mkdir $HOME/work && \
+    chown jenkins:jenkins $HOME/work

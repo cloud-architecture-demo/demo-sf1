@@ -42,7 +42,6 @@ podTemplate(label: label,
                         go get -u github.com/FiloSottile/gvt
                         gvt restore
 
-                        cd ./paymentsvc/
                         go build -o payment
 
                         docker build -t cloud-architecture-demo/payment:v0.1 .
