@@ -26,6 +26,7 @@ podTemplate(label: label,
         stage('user product build pipeline') {
             withCredentials([usernamePassword(credentialsId: 'github-user-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 container('maven') {
+                    sleep time: 10, unit: 'SECONDS'
                     sh '''
 
                         echo "This is the user build pipeline."
@@ -40,12 +41,22 @@ podTemplate(label: label,
                         mv ./user $GOPATH/go/src/github.com/microservices-demo/
 
                         cd $GOPATH/go/src/github.com/microservices-demo/user/
-                        go get -u github.com/FiloSottile/gvt
-                        gvt restore
+                        #go get -u github.com/FiloSottile/gvt
+                        #gvt restore
 
-                        go build -o user
+                        #go get -u github.com/go-kit/kit/log
+                        #go get -u github.com/microservices-demo/user/db
+                        #go get -u github.com/microservices-demo/user/db/mongodb
+                        #go get -u github.com/opentracing/opentracing-go
+                        #go get -u github.com/openzipkin/zipkin-go-opentracing
+                        #go get -u github.com/microservices-demo/user/api
+                        #go get -u github.com/weaveworks/common/middleware
+                        #go get -u github.com/prometheus/client_golang/prometheus
 
-                        docker build -t cloud-architecture-demo/user:v0.1 -f docker/user/Dockerfile .
+                        #make build
+                        #go build -o user
+
+                        docker build -t cloud-architecture-demo/user:v0.1 -f docker/user/Dockerfile-release .
 
                     '''
                 }

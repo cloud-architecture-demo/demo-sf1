@@ -26,6 +26,7 @@ podTemplate(label: label,
         stage('shipping product build job') {
             withCredentials([usernamePassword(credentialsId: 'github-user-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 container('maven') {
+                    sleep time: 10, unit: 'SECONDS'
                     sh '''
 
                         echo "This is the shipping build pipeline."

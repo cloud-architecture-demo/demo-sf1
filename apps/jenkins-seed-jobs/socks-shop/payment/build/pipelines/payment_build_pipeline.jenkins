@@ -25,6 +25,7 @@ podTemplate(label: label,
     node(label) {
         stage('payment product build pipeline') {
             withCredentials([usernamePassword(credentialsId: 'github-user-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                sleep time: 10, unit: 'SECONDS'
                 container('maven') {
                     sh '''
 
