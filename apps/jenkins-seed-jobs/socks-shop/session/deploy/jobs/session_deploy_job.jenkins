@@ -25,7 +25,7 @@ pipelineJob('session-deploy-jenkins-operator') {
                     branches('*/dev')
                 }
             }
-            scriptPath('apps/jenkins-seed-jobs/socks-shop/session/deploy/pipelines/queue_master_deploy_pipeline.jenkins')
+            scriptPath('apps/jenkins-seed-jobs/socks-shop/session/deploy/pipelines/session_deploy_pipeline.jenkins')
         }
     }
 }
