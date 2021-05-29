@@ -146,7 +146,7 @@ spec:
     description: "Socks Shop - Queue-Master Build - Jenkins Operator"
     repositoryBranch: dev
     repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
-  - id: socks-shop-queue-dev-deploy
+  - id: socks-shop-queue-master-deploy
     credentialType: usernamePassword
     credentialID: github-user-token
     targets: "apps/jenkins-seed-jobs/socks-shop/queue-master/deploy/jobs/queue_master_deploy_job.jenkins"
