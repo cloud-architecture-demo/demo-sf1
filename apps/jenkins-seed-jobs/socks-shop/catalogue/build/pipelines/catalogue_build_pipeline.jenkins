@@ -5,15 +5,33 @@ def home = "/home/jenkins"
 def workspace = "${home}/workspace/catalogue-build"
 def workdir = "${workspace}/catalogue-build/"
 
-podTemplate(label: label,
-        containers: [
-                containerTemplate(name: 'alpine', image: 'alpine:3.11', ttyEnabled: true, command: 'cat'),
-        ],
-        ) {
     node(label) {
-        stage('catalogue product build job') {
-            container('alpine') {
-                sh 'echo "This is the catalogue build pipeline."'
+        stage('catalogue product build pipeline') {
+            withCredentials([usernamePassword(credentialsId: 'github-user-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                container('maven') {
+                    sh '''
+
+                        echo "This is the catalogue build pipeline."
+
+                        echo ""
+                        echo "GO Path: ${GOPATH}"
+
+                        ## Prepare environment
+                        export PATH=$PATH:/home/jenkins/bin/
+                        mkdir -p $GOPATH/src/github.com/microservices-demo/catalogue/
+                        git clone https://github.com/cloud-architecture-demo/catalogue.git
+                        mv ./catalogue $GOPATH/src/github.com/microservices-demo/catalogue/cataloguesvc/
+
+                        cd $GOPATH/src/github.com/microservices-demo/catalogue/cataloguesvc/
+                        go get -u github.com/FiloSottile/gvt
+                        gvt restore
+
+                        go build -o catalogue
+
+                        docker build -t cloud-architecture-demo/catalogue:v0.1 -f docker/catalogue/Dockerfile .
+
+                    '''
+                }
             }
         }
     }
