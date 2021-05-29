@@ -34,16 +34,18 @@ podTemplate(label: label,
                         echo "GO Path: ${GOPATH}"
 
                         ## Prepare environment
-                        git clone https://github.com/cloud-architecture-demo/user.git
                         export PATH=$PATH:/home/jenkins/bin/
-                        mv ./user/* ~/work/
+                        mkdir -p $GOPATH/go/src/github.com/microservices-demo/
+                        git clone https://github.com/cloud-architecture-demo/user.git
+                        mv ./user $GOPATH/go/src/github.com/microservices-demo/
 
-                        cd ~/work/
-                        make build
+                        cd $GOPATH/go/src/github.com/microservices-demo/user/
+                        go get -u github.com/FiloSottile/gvt
+                        gvt restore
 
+                        go build -o user
 
-
-                        docker build -t cloud-architecture-demo/user:v0.1 .
+                        docker build -t cloud-architecture-demo/user:v0.1 -f docker/user/Dockerfile .
 
                     '''
                 }
