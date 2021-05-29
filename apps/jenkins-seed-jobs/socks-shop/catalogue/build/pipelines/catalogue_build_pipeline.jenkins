@@ -5,6 +5,23 @@ def home = "/home/jenkins"
 def workspace = "${home}/workspace/catalogue-build"
 def workdir = "${workspace}/catalogue-build/"
 
+podTemplate(label: label,
+    containers: [
+        containerTemplate(name: 'maven', image: 'cloudarchitecturedemo/agent:0.1', alwaysPullImage: true, ttyEnabled: true, command: 'cat',
+            envVars: [
+                envVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375'),
+            ],
+        ),
+        containerTemplate(name: 'docker', image: 'docker:20.10.6-dind', privileged: true, ttyEnabled: true,
+            envVars: [
+                envVar(key: 'DOCKER_TLS_CERTDIR', value: ''),
+            ],
+        ),
+        ],
+        volumes: [
+            emptyDirVolume(mountPath: '/var/lib/docker', memory: false),
+        ],
+        ) {
     node(label) {
         stage('catalogue product build pipeline') {
             withCredentials([usernamePassword(credentialsId: 'github-user-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
