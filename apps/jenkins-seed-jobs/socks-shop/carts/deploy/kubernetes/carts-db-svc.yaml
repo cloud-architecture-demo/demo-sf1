@@ -3,12 +3,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: carts-db
-  labels:
-    name: carts-db
 spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: carts-db
   ports:
     # the port that this service should serve on
   - port: 27017
     targetPort: 27017
-  selector:
-    name: carts-db

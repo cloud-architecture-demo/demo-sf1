@@ -9,9 +9,10 @@ metadata:
     prometheus.io/path: "/prometheus"
   namespace: sock-shop
 spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: queue-master
   ports:
     # the port that this service should serve on
   - port: 80
     targetPort: 80
-  selector:
-    name: queue-master

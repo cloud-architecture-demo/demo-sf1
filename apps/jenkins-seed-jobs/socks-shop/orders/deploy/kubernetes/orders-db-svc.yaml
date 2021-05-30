@@ -7,9 +7,10 @@ metadata:
     name: orders-db
   namespace: sock-shop
 spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: orders-db
   ports:
     # the port that this service should serve on
   - port: 27017
     targetPort: 27017
-  selector:
-    name: orders-db

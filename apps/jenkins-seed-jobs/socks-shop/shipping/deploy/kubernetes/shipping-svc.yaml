@@ -7,10 +7,10 @@ metadata:
     name: shipping
   namespace: sock-shop
 spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: shipping
   ports:
     # the port that this service should serve on
   - port: 80
     targetPort: 80
-  selector:
-    name: shipping
-

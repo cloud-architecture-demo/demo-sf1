@@ -6,8 +6,9 @@ metadata:
   labels:
     name: catalogue
 spec:
+  type: ClusterIP
   selector:
-    name: catalogue
+    app.kubernetes.io/name: catalogue
   ports:
     # the port that this service should serve on
   - port: 80

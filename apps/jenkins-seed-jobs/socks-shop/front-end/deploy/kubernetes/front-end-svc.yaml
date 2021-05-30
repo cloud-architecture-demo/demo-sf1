@@ -8,9 +8,9 @@ metadata:
   namespace: sock-shop
 spec:
   type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: front-end
   ports:
   - port: 80
     targetPort: 8079
     nodePort: 30001
-  selector:
-    name: front-end
