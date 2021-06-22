@@ -26,9 +26,9 @@ RUN apt update                                   && \
     usermod -aG docker jenkins                                                                                  && \
 
 ## Install AWS cli  kubectl
-    wget --quiet https://s3.amazonaws.com/aws-cli/awscli-bundle.zip && \
-    unzip awscli-bundle.zip                                         && \
-    ./awscli-bundle/install -b ~/bin/aws                            && \
+    wget --quiet https://s3.amazonaws.com/aws-cli/awscli-bundle.zip     && \
+    unzip awscli-bundle.zip                                             && \
+    ./awscli-bundle/install -i /usr/local/aws-cli -b /usr/local/bin/aws && \
     wget --quiet -O /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl    && \
     chmod +x /usr/local/bin/kubectl                                                                                                     && \
 

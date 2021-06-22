@@ -46,7 +46,13 @@ podTemplate(label: label,
 
                         go build -o payment
 
-                        docker build -t cloud-architecture-demo/payment:v0.1 -f docker/payment/Dockerfile .
+                        docker build                                                  \
+                        -t cloud-architecture-demo/payment:v0.1                       \
+                        -t ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/payment:v0.1    \
+                        -f docker/payment/Dockerfile .
+
+                        $(aws ecr get-login --no-include-email --region us-east-1)
+                        docker push ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/payment:v0.1
 
                     '''
                 }

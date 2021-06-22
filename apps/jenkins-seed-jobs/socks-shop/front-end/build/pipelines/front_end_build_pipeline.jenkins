@@ -36,7 +36,12 @@ podTemplate(label: label,
                         export PATH=$PATH:/home/jenkins/bin/
                         mv ./front-end/* .
 
-                        docker build -t cloud-architecture-demo/front-end:v0.1 .
+                        docker build                                                    \
+                        -t cloud-architecture-demo/front-end:v0.1                       \
+                        -t ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/front-end:v0.1 .
+
+                        $(aws ecr get-login --no-include-email --region us-east-1)
+                        docker push ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/front-end:v0.1
 
                     '''
                 }

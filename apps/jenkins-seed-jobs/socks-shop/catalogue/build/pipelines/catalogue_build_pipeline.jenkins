@@ -46,7 +46,13 @@ podTemplate(label: label,
 
                         go build -o catalogue
 
-                        docker build -t cloud-architecture-demo/catalogue:v0.1 -f docker/catalogue/Dockerfile .
+                        docker build                                                    \
+                        -t cloud-architecture-demo/catalogue:v0.1                       \
+                        -t ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/catalogue:v0.1    \
+                        -f docker/catalogue/Dockerfile .
+                        
+                        $(aws ecr get-login --no-include-email --region us-east-1)
+                        docker push ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/catalogue:v0.1
 
                     '''
                 }

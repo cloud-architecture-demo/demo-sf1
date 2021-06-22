@@ -38,7 +38,12 @@ podTemplate(label: label,
 
                         mvn -DskipTests package
 
-                        docker build -t cloud-architecture-demo/carts:v0.1 .
+                        docker build                            \
+                        -t cloud-architecture-demo/carts:v0.1   \
+                        -t ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/carts:v0.1 .
+
+                        $(aws ecr get-login --no-include-email --region us-east-1)
+                        docker push ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/carts:v0.1
 
                     '''
                 }

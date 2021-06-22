@@ -42,7 +42,13 @@ podTemplate(label: label,
 
                         cd $GOPATH/go/src/github.com/microservices-demo/user/
 
-                        docker build -t cloud-architecture-demo/user:v0.1 -f docker/user/Dockerfile-release .
+                        docker build                                                \
+                        -t cloud-architecture-demo/user:v0.1                        \
+                        -t ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/user:v0.1     \
+                        -f docker/user/Dockerfile-release .
+                        
+                        $(aws ecr get-login --no-include-email --region us-east-1)
+                        docker push ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/user:v0.1
 
                     '''
                 }
