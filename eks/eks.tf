@@ -60,6 +60,8 @@ data "aws_eks_cluster_auth" "main" {
 #  #load_config_file       = false #The load_config_file = false assignment is critical, so the provider does not start looking for a config file on our file system.
 #}
 
+data "aws_caller_identity" "current" {}
+
 provider "kubectl" {
   host                   = aws_eks_cluster.main.endpoint
   cluster_ca_certificate = base64decode(aws_eks_cluster.main.certificate_authority.0.data)

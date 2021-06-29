@@ -35,6 +35,7 @@ podTemplate(label: label,
                         echo "GO Path: ${GOPATH}"
 
                         ## Prepare environment
+                        AWS_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
                         export PATH=$PATH:/home/jenkins/bin/
                         mkdir -p $GOPATH/go/src/github.com/microservices-demo/
                         git clone https://github.com/cloud-architecture-demo/user.git

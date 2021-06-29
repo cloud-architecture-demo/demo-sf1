@@ -32,6 +32,7 @@ podTemplate(label: label,
                         echo "This is the carts build pipeline."
 
                         ## Prepare environment
+                        AWS_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
                         git clone https://github.com/cloud-architecture-demo/carts.git
                         export PATH=$PATH:/home/jenkins/bin/
                         mv ./carts/* .

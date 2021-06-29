@@ -9,11 +9,11 @@ spec:
   master:
     basePlugins:
     - name: kubernetes
-      version: "1.29.4"
+      version: "1.30.0"
     - name: kubernetes-cli
-      version: "1.10.0"
+      version: "1.10.3"
     - name: workflow-job
-      version: "2.40"
+      version: "2.41"
     - name: workflow-aggregator
       version: "2.6"
     - name: git
@@ -21,9 +21,9 @@ spec:
     - name: job-dsl
       version: "1.77"
     - name: configuration-as-code
-      version: "1.50"
+      version: "1.51"
     - name: kubernetes-credentials-provider
-      version: "0.13"
+      version: "0.18-1"
     containers:
     - name: jenkins-master
       image: jenkins/jenkins:lts

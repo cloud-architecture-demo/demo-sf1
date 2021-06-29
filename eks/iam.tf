@@ -102,10 +102,10 @@ resource "aws_iam_role_policy_attachment" "main-node-AmazonEC2ContainerRegistryP
 #}
 
 ## Define and EC2 instance profile, used to deploy EKS worker nodes.
-resource "aws_iam_instance_profile" "main-node" {
-  name = "terraform-eks-main"
-  role = aws_iam_role.main-node.name
-}
+#resource "aws_iam_instance_profile" "main-node" {
+#  name = "terraform-eks-main"
+#  role = aws_iam_role.main-node.name
+#}
 
 
 ## ECR

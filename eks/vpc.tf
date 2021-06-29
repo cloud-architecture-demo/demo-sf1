@@ -209,3 +209,6 @@ resource "local_file" "kubeconfig" {
   content  = local.kubeconfig
   filename = "kubeconfig-tf-${var.cluster-name}"
 }
+
+
+
