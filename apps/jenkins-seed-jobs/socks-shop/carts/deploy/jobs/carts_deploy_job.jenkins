@@ -1,0 +1,31 @@
+#!/usr/bin/env groovy
+
+pipelineJob('carts-deploy-jenkins-operator') {
+    displayName('carts-deploy')
+
+    logRotator {
+        numToKeep(30)
+        daysToKeep(90)
+    }
+
+    configure { project ->
+        project / 'properties' / 'org.jenkinsci.plugins.workflow.job.properties.DurabilityHintJobProperty' {
+            hint('PERFORMANCE_OPTIMIZED')
+        }
+    }
+
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url('https://github.com/cloud-architecture-demo/demo-sf1.git')
+                        credentials('github-user-token')
+                    }
+                    branches('*/dev')
+                }
+            }
+            scriptPath('apps/jenkins-seed-jobs/socks-shop/carts/deploy/pipelines/carts_deploy_pipeline.jenkins')
+        }
+    }
+}

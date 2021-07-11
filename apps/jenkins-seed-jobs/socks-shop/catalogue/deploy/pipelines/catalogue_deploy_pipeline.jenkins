@@ -1,0 +1,29 @@
+#!/usr/bin/env groovy
+
+def label = "k8sagent-catalogue-deploy"
+def home = "/home/jenkins"
+def workspace = "${home}/workspace/catalogue-deploy"
+def workdir = "${workspace}/catalogue-deploy/"
+
+podTemplate(label: label,
+  containers: [
+    containerTemplate(name: 'kubectl', image: 'cloudarchitecturedemo/agent:0.1', ttyEnabled: true, command: 'cat'),
+  ],
+) {
+node(label) {
+  stage('Catalogue product deploy job') {
+    withCredentials([usernamePassword(credentialsId: 'github-user-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+      container('kubectl') {
+        sh '''
+          echo "This is the catalogue deploy pipeline."
+
+          ## Prepare environment
+          git clone https://${PASSWORD}@github.com/cloud-architecture-demo/demo-sf1.git -b dev
+
+          kubectl -n sock-shop apply -f ./demo-sf1/apps/jenkins-seed-jobs/socks-shop/catalogue/deploy/kubernetes
+        '''
+        }
+      }
+    }
+  }
+}

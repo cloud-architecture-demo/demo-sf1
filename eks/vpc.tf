@@ -201,8 +201,14 @@ users:
       - ${var.cluster-name}
       command: aws
 KUBECONFIG
-
-
   ## append more locals/outputs as needed.
 
 }
+
+resource "local_file" "kubeconfig" {
+  content  = local.kubeconfig
+  filename = "kubeconfig-tf-${var.cluster-name}"
+}
+
+
+

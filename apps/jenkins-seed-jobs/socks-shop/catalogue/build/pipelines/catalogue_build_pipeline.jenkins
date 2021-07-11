@@ -1,0 +1,63 @@
+#!/usr/bin/env groovy
+
+def label = "k8sagent-catalogue-build"
+def home = "/home/jenkins"
+def workspace = "${home}/workspace/catalogue-build"
+def workdir = "${workspace}/catalogue-build/"
+
+podTemplate(label: label,
+    containers: [
+        containerTemplate(name: 'maven', image: 'cloudarchitecturedemo/agent:0.1', alwaysPullImage: true, ttyEnabled: true, command: 'cat',
+            envVars: [
+                envVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375'),
+            ],
+        ),
+        containerTemplate(name: 'docker', image: 'docker:20.10.6-dind', privileged: true, ttyEnabled: true,
+            envVars: [
+                envVar(key: 'DOCKER_TLS_CERTDIR', value: ''),
+            ],
+        ),
+        ],
+        volumes: [
+            emptyDirVolume(mountPath: '/var/lib/docker', memory: false),
+        ],
+        ) {
+    node(label) {
+        stage('catalogue product build pipeline') {
+            withCredentials([usernamePassword(credentialsId: 'github-user-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                container('maven') {
+                    sleep time: 10, unit: 'SECONDS'
+                    sh '''
+
+                        echo "This is the catalogue build pipeline."
+
+                        echo ""
+                        echo "GO Path: ${GOPATH}"
+
+                        ## Prepare environment
+                        AWS_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+                        export PATH=$PATH:/home/jenkins/bin/
+                        mkdir -p $GOPATH/src/github.com/microservices-demo/catalogue/
+                        git clone https://github.com/cloud-architecture-demo/catalogue.git
+                        mv ./catalogue $GOPATH/src/github.com/microservices-demo/catalogue/cataloguesvc/
+
+                        cd $GOPATH/src/github.com/microservices-demo/catalogue/cataloguesvc/
+                        go get -u github.com/FiloSottile/gvt
+                        gvt restore
+
+                        go build -o catalogue
+
+                        docker build                                                    \
+                        -t cloud-architecture-demo/catalogue:v0.1                       \
+                        -t ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/catalogue:v0.1    \
+                        -f docker/catalogue/Dockerfile .
+                        
+                        $(aws ecr get-login --no-include-email --region us-east-1)
+                        docker push ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/catalogue:v0.1
+
+                    '''
+                }
+            }
+        }
+    }
+}

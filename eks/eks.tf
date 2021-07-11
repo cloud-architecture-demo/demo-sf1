@@ -60,6 +60,8 @@ data "aws_eks_cluster_auth" "main" {
 #  #load_config_file       = false #The load_config_file = false assignment is critical, so the provider does not start looking for a config file on our file system.
 #}
 
+data "aws_caller_identity" "current" {}
+
 provider "kubectl" {
   host                   = aws_eks_cluster.main.endpoint
   cluster_ca_certificate = base64decode(aws_eks_cluster.main.certificate_authority.0.data)
@@ -75,6 +77,17 @@ resource "kubectl_manifest" "nginx_ingress_controller" {
     count     = length(data.kubectl_file_documents.nginx_ingress_controller_manifests.documents)
     yaml_body = element(data.kubectl_file_documents.nginx_ingress_controller_manifests.documents, count.index)
 }
+
+
+data "kubectl_file_documents" "socks_shop_namespace_manifests" {
+    content = file("../apps/jenkins-seed-jobs/socks-shop/sock-shop-ns.yaml")
+}
+
+resource "kubectl_manifest" "socks_shop_namespace" {
+    count     = length(data.kubectl_file_documents.socks_shop_namespace_manifests.documents)
+    yaml_body = element(data.kubectl_file_documents.socks_shop_namespace_manifests.documents, count.index)
+}
+
 
 data "kubectl_file_documents" "jenkins_operator_manifests" {
     content = file("../apps/jenkins-operator/jenkins-operator.yaml")
@@ -92,4 +105,23 @@ data "kubectl_file_documents" "jenkins_server_manifests" {
 resource "kubectl_manifest" "jenkins_server" {
     count     = length(data.kubectl_file_documents.jenkins_server_manifests.documents)
     yaml_body = element(data.kubectl_file_documents.jenkins_server_manifests.documents, count.index)
+}
+
+
+data "kubectl_file_documents" "github-access-token_manifests" {
+    content = file("../apps/_credentials/github-access-token-secret.yaml")
+}
+
+resource "kubectl_manifest" "github-access-token_credentials" {
+    count     = length(data.kubectl_file_documents.github-access-token_manifests.documents)
+    yaml_body = element(data.kubectl_file_documents.github-access-token_manifests.documents, count.index)
+}
+
+data "kubectl_file_documents" "kubeconfig_credentials_manifests" {
+    content = file("../apps/_credentials/kubeconfig-secret.yaml")
+}
+
+resource "kubectl_manifest" "kubeconfig_credentials" {
+    count     = length(data.kubectl_file_documents.kubeconfig_credentials_manifests.documents)
+    yaml_body = element(data.kubectl_file_documents.kubeconfig_credentials_manifests.documents, count.index)
 }

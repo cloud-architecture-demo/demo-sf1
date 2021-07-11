@@ -79,8 +79,6 @@ variable "mapPublicIP" {
     default = true
 }
 
-
-
 variable "enable_cross_zone_load_balancing" {
   default = true
 }

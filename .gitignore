@@ -4,3 +4,7 @@ eks/terraform.tfstate
 terraform.tfstate.backup
 kubeconfig
 secrets.tfvars
+*github-access-token-secret.yaml
+*github-access-token-secret.yml
+*secret.yaml
+*secret.yml

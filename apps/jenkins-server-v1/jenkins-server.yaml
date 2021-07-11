@@ -9,9 +9,11 @@ spec:
   master:
     basePlugins:
     - name: kubernetes
-      version: "1.25.2"
+      version: "1.30.0"
+    - name: kubernetes-cli
+      version: "1.10.3"
     - name: workflow-job
-      version: "2.40"
+      version: "2.41"
     - name: workflow-aggregator
       version: "2.6"
     - name: git
@@ -19,9 +21,9 @@ spec:
     - name: job-dsl
       version: "1.77"
     - name: configuration-as-code
-      version: "1.47"
+      version: "1.51"
     - name: kubernetes-credentials-provider
-      version: "0.13"
+      version: "0.18-1"
     containers:
     - name: jenkins-master
       image: jenkins/jenkins:lts
@@ -60,11 +62,132 @@ spec:
         runAsUser: 1000
         fsGroup: 1000
   seedJobs:
-  - id: jenkins-operator
+  - id: hello-world-demo
+    credentialType: usernamePassword
+    credentialID: github-user-token
     targets: "apps/jenkins-seed-jobs/hello-world/jobs/hello_world.jenkins"
     description: "Hello World Demo - Jenkins Operator"
     repositoryBranch: dev
-    repositoryUrl: https://github.com/Joeltrane/architecture-demo.git
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-carts-build
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/carts/build/jobs/carts_build_job.jenkins"
+    description: "Socks Shop - Carts Build - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-carts-deploy
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/carts/deploy/jobs/carts_deploy_job.jenkins"
+    description: "Socks Shop - Carts Deploy - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-catalogue-build
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/catalogue/build/jobs/catalogue_build_job.jenkins"
+    description: "Socks Shop - Catalogue Build - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-catalogue-deploy
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/catalogue/deploy/jobs/catalogue_deploy_job.jenkins"
+    description: "Socks Shop - Catalogue Deploy - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-front-end-build
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/front-end/build/jobs/front_end_build_job.jenkins"
+    description: "Socks Shop - Front-End Build - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-front-end-deploy
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/front-end/deploy/jobs/front_end_deploy_job.jenkins"
+    description: "Socks Shop - Front-End Deploy - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-orders-build
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/orders/build/jobs/orders_build_job.jenkins"
+    description: "Socks Shop - Orders Build - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-orders-deploy
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/orders/deploy/jobs/orders_deploy_job.jenkins"
+    description: "Socks Shop - Orders Deploy - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-payment-build
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/payment/build/jobs/payment_build_job.jenkins"
+    description: "Socks Shop - Payment Build - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-payment-deploy
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/payment/deploy/jobs/payment_deploy_job.jenkins"
+    description: "Socks Shop - Payment Deploy - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-queue-master-build
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/queue-master/build/jobs/queue_master_build_job.jenkins"
+    description: "Socks Shop - Queue-Master Build - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-queue-master-deploy
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/queue-master/deploy/jobs/queue_master_deploy_job.jenkins"
+    description: "Socks Shop - Queue-Master Deploy - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-session-deploy
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/session/deploy/jobs/session_deploy_job.jenkins"
+    description: "Socks Shop - Session Deploy - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-shipping-build
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/shipping/build/jobs/shipping_build_job.jenkins"
+    description: "Socks Shop - Shipping Build - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-shipping-deploy
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/shipping/deploy/jobs/shipping_deploy_job.jenkins"
+    description: "Socks Shop - Shipping Deploy - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-user-build
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/user/build/jobs/user_build_job.jenkins"
+    description: "Socks Shop - User Build - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
+  - id: socks-shop-user-deploy
+    credentialType: usernamePassword
+    credentialID: github-user-token
+    targets: "apps/jenkins-seed-jobs/socks-shop/user/deploy/jobs/user_deploy_job.jenkins"
+    description: "Socks Shop - User Deploy - Jenkins Operator"
+    repositoryBranch: dev
+    repositoryUrl: https://github.com/cloud-architecture-demo/demo-sf1.git
 ---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress

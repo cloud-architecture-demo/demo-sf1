@@ -1,0 +1,56 @@
+#!/usr/bin/env groovy
+
+def label = "k8sagent-shipping-build"
+def home = "/home/jenkins"
+def workspace = "${home}/workspace/shipping-build"
+def workdir = "${workspace}/shipping-build/"
+
+podTemplate(label: label,
+    containers: [
+        containerTemplate(name: 'maven', image: 'cloudarchitecturedemo/agent:0.1', alwaysPullImage: true, ttyEnabled: true, command: 'cat',
+            envVars: [
+                envVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375'),
+            ],
+        ),
+        containerTemplate(name: 'docker', image: 'docker:20.10.6-dind', privileged: true, ttyEnabled: true,
+            envVars: [
+                envVar(key: 'DOCKER_TLS_CERTDIR', value: ''),
+            ],
+        ),
+        ],
+        volumes: [
+            emptyDirVolume(mountPath: '/var/lib/docker', memory: false),
+        ],
+        ) {
+    node(label) {
+        stage('shipping product build job') {
+            withCredentials([usernamePassword(credentialsId: 'github-user-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                container('maven') {
+                    sleep time: 10, unit: 'SECONDS'
+                    sh '''
+
+                        echo "This is the shipping build pipeline."
+
+                        ## Prepare environment
+                        AWS_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+                        git clone https://github.com/cloud-architecture-demo/shipping.git
+                        export PATH=$PATH:/home/jenkins/bin/
+                        mv ./shipping/* .
+
+                        mvn -DskipTests package
+                        mv target/*.jar .
+
+                        docker build                                                        \
+                        -t cloud-architecture-demo/shipping:v0.1                        \
+                        -t ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/shipping:v0.1     \
+                        -f docker/shipping/Dockerfile .
+                        
+                        $(aws ecr get-login --no-include-email --region us-east-1)
+                        docker push ${AWS_ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com/shipping:v0.1
+
+                    '''
+                }
+            }
+        }
+    }
+}
