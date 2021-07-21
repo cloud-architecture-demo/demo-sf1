@@ -1,24 +1,44 @@
-# Demo SF-1
+#Demo SF-1
 
 This repo contains reference architecture expressed with infrastructure/configuration as code to observe BizDevOps workflows, in a cloud native environment.
+The architecture in this demo utilizes [Amazon Web Services'](https://aws.amazon.com/) [Elastic Kubernetes Service](https://aws.amazon.com/eks/) as the Core Infrastructure layer.
+For the Business Application layer, the [Jenkins Kubernetes Operator](https://github.com/jenkinsci/kubernetes-operator) and the [Configuration as Code plugin](https://github.com/jenkinsci/configuration-as-code-plugin) are used to automate the configuration of each CI/CD Pipeline.
+Finally, in the Business Application layer, we are using the [sock-shop demo, from Weaveworks](https://microservices-demo.github.io/).
 
 <br>
 
-### There are two ways to create demo-sf1
+<br>
+
+---
+
+<br>
+
+
+###There are two ways to create demo-sf1
 There are two ways to create demo-sf1. The first method is more automated and easier for beginners, its also just a quick way to get things started for anyone.
 The Second method is a more traditional workflow where you will need to install and configure the dependencies to make terraform work. You will need to determine which method is right for you.
 
-- [The Quickstart/Beginner's Guide](#### Quickstart/Beginner's Deployment Guide)
+- [The Quickstart/Beginner's Guide](####Quickstart/Beginner's Deployment Guide)
 
-- [Advanced Users Deployment Guide](#### Advanced Users Deployment Guide)
+- [Advanced Users Deployment Guide](####Advanced Users Deployment Guide)
 
-#### Quickstart/Beginner's Deployment Guide
+
+<br>
+
+<br>
+
+---
+
+<br>
+
+
+####Quickstart/Beginner's Deployment Guide
 
 This section was created as a quickstart guide to help beginners create the demo environment. It differs from the advanced deployment guide in that you don't need to install and configure the typical dependencies yourself. Instead, a VM get's provisioned on your local machine where all of the business happens.
 
 <br>
 
-##### Dependencies:
+#####Dependencies:
 
 For this guide you will need to install the following dependencies:
 
@@ -28,19 +48,23 @@ For this guide you will need to install the following dependencies:
 
 4. If you are using Windows, it is suggested to install git for windows instead: https://gitforwindows.org/
 
-> Don't forget to make sure that the path to your git and vagrant binary is in the $PATH. i.e. `export PATH=$PATH:/path/to/binaries/`
+   > Don't forget to make sure that the path to your git and vagrant binary is in the $PATH. i.e. `export PATH=$PATH:/path/to/binaries/`
 
 <br>
 
-##### Pre-deployment
+#####Pre-deployment
 
-You'll need to add the public SSH key to your AWS account. If you need a key pair, you should be able to generate a key pair by following these steps:
+- You'll need to add the public SSH key to your AWS account. If you need a key pair, you should be able to generate a key pair by following these steps:
 
-https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair
+  - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair
+
+- You also need an AWS programmatic API key pair. We will be exporting it as an Environment Variable in your BASH shell (terminal). If you don't yet have an API key pair, please review the official documentation:
+  - https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys
+
 
 <br>
 
-##### Deploy:
+#####Deploy:
 
 Step 1: Clone the demo code:
 ```
@@ -83,9 +107,11 @@ vagrant up
 ```
 > If the processes doesn't complete successfully the first attempt, try again to see if there was a race time condition that no longer exists (waiting for cloud API).
 
+At this point, your demo should be deployed and the access information displayed on your terminal screen. Congrats!
+
 <br>
 
-##### Destroy:
+#####Destroy:
 Step 1: Change directories into the code directory
 ```
 cd ./demo-sf1
@@ -107,14 +133,20 @@ vagrant destroy -f
 
 <br>
 
-#### Advanced Users Deployment Guide
+<br>
+
+---
+
+<br>
+
+####Advanced Users Deployment Guide
 
 This guide is written for people who are comfortable installing and configuring dependencies on their local environment and are used to working in shell environments.
 
 <br>
 
 
-##### Dependencies:
+#####Dependencies:
 
 For this guide you will need to install the following dependencies:
 
@@ -124,20 +156,23 @@ For this guide you will need to install the following dependencies:
 4. kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#install-on-windows-using-chocolatey-or-scoop
 5. If you are using Windows, it is suggested to install git for windows instead: https://gitforwindows.org/
 
-> Don't forget to make sure that the path to your git, terraform, aws and kubectl binaries are in the $PATH. i.e. `export PATH=$PATH:/path/to/binaries/`
+   > Don't forget to make sure that the path to your git, terraform, aws and kubectl binaries are in the $PATH. i.e. `export PATH=$PATH:/path/to/binaries/`
 
 <br>
 
-##### Pre-deployment
+#####Pre-deployment
 
-You'll need to add the public SSH key to your AWS account. If you need a key pair, you should be able to generate a key pair by following these steps:
+- You'll need to add the public SSH key to your AWS account. If you need a key pair, you should be able to generate a key pair by following these steps:
 
-https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair
+  - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair
+
+- You also need an AWS programmatic API key pair. We will be exporting it as an Environment Variable in your BASH shell (terminal). If you don't yet have an API key pair, please review the official documentation:
+  - https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys
 
 
 <br>
 
-##### Deploy:
+#####Deploy:
 
 Step 1: Clone the demo code:
 ```
@@ -181,9 +216,11 @@ Step 5: terraform up wrapper script
 ```
 > If the processes doesn't complete successfully the first attempt, try again to see if there was a race time condition that no longer exists (waiting for cloud API).
 
+At this point, your demo should be deployed and the access information displayed on your terminal screen. Congrats!
+
 <br>
 
-##### Destroy:
+#####Destroy:
 Step 1: Change directories into the code directory
 ```
 cd ./demo-sf1
@@ -200,5 +237,11 @@ Step 3: Create Vagrant VM to deploy environment
 ```
 ./destroy
 ```
+
+<br>
+
+<br>
+
+---
 
 <br>
