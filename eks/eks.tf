@@ -52,20 +52,13 @@ data "aws_eks_cluster_auth" "main" {
   name = aws_eks_cluster.main.name
 }
 
-## Define the Kubernetes provider and associate it with the EKS cluster defined above.
-#provider "kubernetes" {
-#  host                   = aws_eks_cluster.main.endpoint
-#  cluster_ca_certificate = base64decode(aws_eks_cluster.main.certificate_authority.0.data)
-#  token                  = data.aws_eks_cluster_auth.main.token
-#  #load_config_file       = false #The load_config_file = false assignment is critical, so the provider does not start looking for a config file on our file system.
-#}
-
 data "aws_caller_identity" "current" {}
 
 provider "kubectl" {
   host                   = aws_eks_cluster.main.endpoint
   cluster_ca_certificate = base64decode(aws_eks_cluster.main.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.main.token
+  apply_retry_count      = "8"
   #load_config_file       = false
 }
 

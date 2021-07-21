@@ -2,9 +2,6 @@
 # Create VPC/Subnet/Security Group
 provider "aws" {
   version = "~> 2.0"
-  #access_key = var.access_key
-  #secret_key = var.secret_key
-  shared_credentials_file = var.aws_creds
   region     = var.region
 }
 
@@ -207,7 +204,7 @@ KUBECONFIG
 
 resource "local_file" "kubeconfig" {
   content  = local.kubeconfig
-  filename = "kubeconfig-tf-${var.cluster-name}"
+  filename = "kubeconfig-tf"
 }
 
 
