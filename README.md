@@ -19,9 +19,9 @@ Finally, in the Business Application layer, we are using the [sock-shop demo, fr
 There are two ways to create demo-sf1. The first method is more automated and easier for beginners, its also just a quick way to get things started for anyone.
 The Second method is a more traditional workflow where you will need to install and configure the dependencies to make terraform work. You will need to determine which method is right for you.
 
-- [The Quickstart and Beginner's Guide](####quickstart-and-beginners-deployment-guide)
+- [The Quickstart and Beginner's Guide](#quickstart-and-beginners-deployment-guide)
 
-- [Advanced Users Deployment Guide](####advanced-users-deployment-guide)
+- [Advanced Users Deployment Guide](#advanced-users-deployment-guide)
 
 
 <br>
@@ -33,6 +33,7 @@ The Second method is a more traditional workflow where you will need to install 
 <br>
 
 
+<a name="quickstart-and-beginners-deployment-guide"></a>
 #### Quickstart and Beginner's Deployment Guide
 
 This section was created as a quickstart guide to help beginners create the demo environment. It differs from the advanced deployment guide in that you don't need to install and configure the typical dependencies yourself. Instead, a VM get's provisioned on your local machine where all of the business happens.
@@ -140,6 +141,7 @@ vagrant destroy -f
 
 <br>
 
+<a name="advanced-users-deployment-guide"></a>
 #### Advanced Users Deployment Guide
 
 This guide is written for people who are comfortable installing and configuring dependencies on their local environment and are used to working in shell environments.
