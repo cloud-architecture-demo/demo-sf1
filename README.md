@@ -34,7 +34,7 @@ The Second method is a more traditional workflow where you will need to install 
 
 
 <a name="quickstart-and-beginners-deployment-guide"></a>
-#### Quickstart and Beginner's Deployment Guide
+### Quickstart and Beginner's Deployment Guide
 
 This section was created as a quickstart guide to help beginners create the demo environment. It differs from the advanced deployment guide in that you don't need to install and configure the typical dependencies yourself. Instead, a VM get's provisioned on your local machine where all of the business happens.
 
@@ -142,7 +142,7 @@ vagrant destroy -f
 <br>
 
 <a name="advanced-users-deployment-guide"></a>
-#### Advanced Users Deployment Guide
+### Advanced Users Deployment Guide
 
 This guide is written for people who are comfortable installing and configuring dependencies on their local environment and are used to working in shell environments.
 
