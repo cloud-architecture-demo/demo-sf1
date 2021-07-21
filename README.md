@@ -1,4 +1,4 @@
-#Demo SF-1
+# Demo SF-1
 
 This repo contains reference architecture expressed with infrastructure/configuration as code to observe BizDevOps workflows, in a cloud native environment.
 The architecture in this demo utilizes [Amazon Web Services'](https://aws.amazon.com/) [Elastic Kubernetes Service](https://aws.amazon.com/eks/) as the Core Infrastructure layer.
@@ -14,13 +14,14 @@ Finally, in the Business Application layer, we are using the [sock-shop demo, fr
 <br>
 
 
-###There are two ways to create demo-sf1
+### There are two ways to create demo-sf1
+
 There are two ways to create demo-sf1. The first method is more automated and easier for beginners, its also just a quick way to get things started for anyone.
 The Second method is a more traditional workflow where you will need to install and configure the dependencies to make terraform work. You will need to determine which method is right for you.
 
-- [The Quickstart/Beginner's Guide](####Quickstart/Beginner's Deployment Guide)
+- [The Quickstart and Beginner's Guide](####quickstart-and-beginners-deployment-guide)
 
-- [Advanced Users Deployment Guide](####Advanced Users Deployment Guide)
+- [Advanced Users Deployment Guide](####advanced-users-deployment-guide)
 
 
 <br>
@@ -32,13 +33,13 @@ The Second method is a more traditional workflow where you will need to install 
 <br>
 
 
-####Quickstart/Beginner's Deployment Guide
+#### Quickstart and Beginner's Deployment Guide
 
 This section was created as a quickstart guide to help beginners create the demo environment. It differs from the advanced deployment guide in that you don't need to install and configure the typical dependencies yourself. Instead, a VM get's provisioned on your local machine where all of the business happens.
 
 <br>
 
-#####Dependencies:
+##### Dependencies:
 
 For this guide you will need to install the following dependencies:
 
@@ -52,7 +53,7 @@ For this guide you will need to install the following dependencies:
 
 <br>
 
-#####Pre-deployment
+##### Pre-deployment
 
 - You'll need to add the public SSH key to your AWS account. If you need a key pair, you should be able to generate a key pair by following these steps:
 
@@ -64,7 +65,7 @@ For this guide you will need to install the following dependencies:
 
 <br>
 
-#####Deploy:
+##### Deploy:
 
 Step 1: Clone the demo code:
 ```
@@ -111,7 +112,7 @@ At this point, your demo should be deployed and the access information displayed
 
 <br>
 
-#####Destroy:
+##### Destroy:
 Step 1: Change directories into the code directory
 ```
 cd ./demo-sf1
@@ -139,14 +140,14 @@ vagrant destroy -f
 
 <br>
 
-####Advanced Users Deployment Guide
+#### Advanced Users Deployment Guide
 
 This guide is written for people who are comfortable installing and configuring dependencies on their local environment and are used to working in shell environments.
 
 <br>
 
 
-#####Dependencies:
+##### Dependencies:
 
 For this guide you will need to install the following dependencies:
 
@@ -160,7 +161,7 @@ For this guide you will need to install the following dependencies:
 
 <br>
 
-#####Pre-deployment
+##### Pre-deployment
 
 - You'll need to add the public SSH key to your AWS account. If you need a key pair, you should be able to generate a key pair by following these steps:
 
@@ -172,7 +173,7 @@ For this guide you will need to install the following dependencies:
 
 <br>
 
-#####Deploy:
+##### Deploy:
 
 Step 1: Clone the demo code:
 ```
@@ -220,7 +221,7 @@ At this point, your demo should be deployed and the access information displayed
 
 <br>
 
-#####Destroy:
+##### Destroy:
 Step 1: Change directories into the code directory
 ```
 cd ./demo-sf1
