@@ -23,6 +23,18 @@ The Second method is a more traditional workflow where you will need to install 
 
 - [Advanced Users Deployment Guide](#advanced-users-deployment-guide)
 
+<br>
+
+> NOTE:
+>
+> When switching back and fourth between the Quickstart deploy method and the advanced deploy method, it is advisable that you first delete any demo-sf1 infrastructure that you currently have deployed.
+> Then. delete the `terraform.tfstate` and `terraform.tfstate.backup` files.
+> ```
+> cd ./demo-sf1/eks/
+> ls
+>
+> rm terraform.tfstate*
+> ```
 
 <br>
 
@@ -68,12 +80,12 @@ For this guide you will need to install the following dependencies:
 
 ##### Deploy:
 
-Step 1: Clone the demo code:
+Step 1: Clone the demo code.
 ```
 git clone https://github.com/cloud-architecture-demo/demo-sf1.git
 ```
 
-Step 2: Change directories into the code directory
+Step 2: Change directories into the code directory.
 ```
 cd ./demo-sf1
 ```
@@ -103,7 +115,7 @@ Follow the official documentation to set this up, here:
 
 <br>
 
-Step 5: Create Vagrant VM to deploy environment
+Step 5: Create Vagrant VM, it should automatically pick up your AWS credentials from the shell and deploy the demo-sf1 infrastructure in the cloud.
 ```
 vagrant up
 ```
@@ -114,7 +126,7 @@ At this point, your demo should be deployed and the access information displayed
 <br>
 
 ##### Destroy:
-Step 1: Change directories into the code directory
+Step 1: Change directories into the code directory.
 ```
 cd ./demo-sf1
 ```
@@ -128,7 +140,7 @@ Follow the official documentation to set this up, here:
 
 <br>
 
-Step 3: Create Vagrant VM to deploy environment
+Step 3: Destroy Vagrant VM, it should automatically pick up your AWS credentials from the shell and destroy the demo-sf1 infrastructure in the cloud.
 ```
 vagrant destroy -f
 ```
@@ -182,7 +194,7 @@ Step 1: Clone the demo code:
 git clone https://github.com/cloud-architecture-demo/demo-sf1.git
 ```
 
-Step 2: Change directories into the code directory
+Step 2: Change directories into the code directory.
 ```
 cd ./demo-sf1
 ```
@@ -213,7 +225,7 @@ Follow the official documentation to set this up, here:
 <br>
 
 
-Step 5: terraform up wrapper script
+Step 5: Deploy demo-sf1. Run the `terraform up` wrapper script, `deploy.sh`.
 ```
 ./deploy.sh
 ```
@@ -224,7 +236,7 @@ At this point, your demo should be deployed and the access information displayed
 <br>
 
 ##### Destroy:
-Step 1: Change directories into the code directory
+Step 1: Change directories into the code directory.
 ```
 cd ./demo-sf1
 ```
@@ -236,7 +248,7 @@ Follow the official documentation to set this up, here:
 
 <br>
 
-Step 3: Create Vagrant VM to deploy environment
+Step 3: Destroy demo-sf1. Run the `terraform destroy` wrapper script, `destroy.sh`.
 ```
 ./destroy
 ```
