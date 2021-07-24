@@ -120,6 +120,7 @@ Step 5: Create Vagrant VM, it should automatically pick up your AWS credentials 
 vagrant up
 ```
 > If the processes doesn't complete successfully the first attempt, try again to see if there was a race time condition that no longer exists (waiting for cloud API).
+>  `vagrant up --provison`
 
 At this point, your demo should be deployed and the access information displayed on your terminal screen. Congrats!
 
@@ -230,6 +231,7 @@ Step 5: Deploy demo-sf1. Run the `terraform up` wrapper script, `deploy.sh`.
 ./deploy.sh
 ```
 > If the processes doesn't complete successfully the first attempt, try again to see if there was a race time condition that no longer exists (waiting for cloud API).
+>`./deploy.sh`
 
 At this point, your demo should be deployed and the access information displayed on your terminal screen. Congrats!
 

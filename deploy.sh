@@ -12,6 +12,8 @@ terraform apply -auto-approve -var-file secrets.tfvars
 export KUBECONFIG=./kubeconfig-tf
 KUBECONFIG_BASE64=$(cat "${KUBECONFIG}" | base64 | tr -d '\n')
 
+#kubectl create clusterrolebinding clusterrole-admin-nginx --clusterrole=cluster-admin --serviceaccount=ingress-nginx:ingress-nginx
+
 kubectl apply -f ../apps/jenkins-seed-jobs/socks-shop/front-end/deploy/kubernetes/front-end-svc.yaml
 
 JENKINS_PASSWORD=$(kubectl get secret jenkins-operator-credentials-prod-jenkins -o 'jsonpath={.data.password}' | base64 -d)
