@@ -43,7 +43,11 @@ resource "aws_eks_node_group" "eks" {
     aws_iam_role_policy_attachment.main-node-AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.main-node-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.main-node-AmazonEC2ContainerRegistryReadOnly,
+    aws_iam_role_policy_attachment.main-node-AmazonEC2FullAccess,
   ]
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 
@@ -58,8 +62,17 @@ provider "kubectl" {
   host                   = aws_eks_cluster.main.endpoint
   cluster_ca_certificate = base64decode(aws_eks_cluster.main.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.main.token
-  apply_retry_count      = "8"
+  apply_retry_count      = "4"
   #load_config_file       = false
+}
+
+data "kubectl_file_documents" "ingress_nginx_namespace_manifests" {
+    content = file("./nginx-ingress-ns.yaml")
+}
+
+resource "kubectl_manifest" "ingress_nginx_namespace" {
+    count     = length(data.kubectl_file_documents.ingress_nginx_namespace_manifests.documents)
+    yaml_body = element(data.kubectl_file_documents.ingress_nginx_namespace_manifests.documents, count.index)
 }
 
 data "kubectl_file_documents" "nginx_ingress_controller_manifests" {

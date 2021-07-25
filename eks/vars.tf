@@ -1,13 +1,14 @@
 ## These open variables are used to dynamically pass sensitive information into the terraform plan without exposing them to source control.
 variable "cluster-name" {}
-variable "domain_name" {}
 variable "region" {}
-variable "hosted-zone-id" {}
 variable "vpn_cidr_block" {}
 variable "endpoint_public_access" {}
 variable "endpoint_private_access" {}
 variable "ec2_ssh_key" {}
-variable "aws_creds" {}
+#variable "aws_creds" {}
+#variable "domain_name" {}
+#variable "hosted-zone-id" {}
+
 
 variable "eks_desired_size" {
     default = 3
