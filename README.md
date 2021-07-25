@@ -124,6 +124,11 @@ vagrant up
 
 At this point, your demo should be deployed and the access information displayed on your terminal screen. Congrats!
 
+
+> NOTE: 
+>
+> When deploying Jenkins or the Sock Shop app, please be patient while the automation stands them up, they might not yet be ready to start accepting connections. If you are browsing for them and the application doesn't seem to be available, wait a minute for the containers to deploy fully, then refresh your browser page.
+
 <br>
 
 ##### Destroy:
@@ -234,6 +239,11 @@ Step 5: Deploy demo-sf1. Run the `terraform up` wrapper script, `deploy.sh`.
 >`./deploy.sh`
 
 At this point, your demo should be deployed and the access information displayed on your terminal screen. Congrats!
+
+> NOTE: 
+>
+> When deploying Jenkins or the Sock Shop app, please be patient while the automation stands them up, they might not yet be ready to start accepting connections. If you are browsing for them and the application doesn't seem to be available, wait a minute for the containers to deploy fully, then refresh your browser page.
+
 
 <br>
 

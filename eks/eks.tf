@@ -45,6 +45,9 @@ resource "aws_eks_node_group" "eks" {
     aws_iam_role_policy_attachment.main-node-AmazonEC2ContainerRegistryReadOnly,
     aws_iam_role_policy_attachment.main-node-AmazonEC2FullAccess,
   ]
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 
@@ -59,7 +62,7 @@ provider "kubectl" {
   host                   = aws_eks_cluster.main.endpoint
   cluster_ca_certificate = base64decode(aws_eks_cluster.main.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.main.token
-  apply_retry_count      = "4" #"8"
+  apply_retry_count      = "4"
   #load_config_file       = false
 }
 
