@@ -6,7 +6,18 @@ spec:
   service:
     type: NodePort
     port: 8080
+  configurationAsCode:
+    configurations: []
+    secret:
+      name: ""
+  groovyScripts:
+    configurations: []
+    secret:
+      name: ""
+  jenkinsAPISettings:
+    authorizationStrategy: createUser
   master:
+    disableCSRFProtection: false
     basePlugins:
     - name: kubernetes
       version: "1.30.0"
@@ -25,40 +36,40 @@ spec:
     - name: kubernetes-credentials-provider
       version: "0.18-1"
     containers:
-    - name: jenkins-master
-      image: jenkins/jenkins:lts
-      imagePullPolicy: Always
-      env:
-      - name: JENKINS_OPTS
-        value: --prefix=/jenkins
-      livenessProbe:
-        failureThreshold: 12
-        httpGet:
-          path: /login
-          port: http
-          scheme: HTTP
-        initialDelaySeconds: 80
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 5
-      readinessProbe:
-        failureThreshold: 3
-        httpGet:
-          path: /login
-          port: http
-          scheme: HTTP
-        initialDelaySeconds: 30
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 1
-      resources:
-        limits:
-          cpu: 1500m
-          memory: 3Gi
-        requests:
-          cpu: "1"
-          memory: 500Mi
-      securityContext:
+      - name: jenkins-master
+        image: jenkins/jenkins:2.277.4-lts-alpine
+        imagePullPolicy: Always
+        env:
+        - name: JENKINS_OPTS
+          value: --prefix=/jenkins
+        livenessProbe:
+          failureThreshold: 12
+          httpGet:
+            path: /login
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 100
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        readinessProbe:
+          failureThreshold: 10
+          httpGet:
+            path: /login
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 80
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 1500m
+            memory: 3Gi
+          requests:
+            cpu: "1"
+            memory: 500Mi
+        securityContext:
         runAsUser: 1000
         fsGroup: 1000
   seedJobs:
